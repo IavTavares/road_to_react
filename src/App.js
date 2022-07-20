@@ -33,14 +33,26 @@ function App() {
   return (
     <div>
       <h1> My Hacker Stories </h1>
-      <label htmlFor='search'>Search: </label>
-      <input id='search' type = 'text'/>
+      <Search />
+      <hr />
+      <List />
       <hr />
       <List />
     </div>
   )
 };
-
+function Search(){
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    // open developer tab on the browser to see the log.
+  };
+  return(
+    <div>
+      <label htmlFor='search'>Search: </label>
+      <input id='search' type = 'text' onChange={handleChange}/>
+    </div>
+  )
+};
 function List(){
   return (
     <ul>
@@ -59,5 +71,8 @@ function List(){
     </ul>  
   );
 }
+
+
+
 
 export default App;
