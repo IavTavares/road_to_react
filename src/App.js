@@ -47,32 +47,31 @@ function App() {
       objectID: 1,
     },
   ];
+  const [searchTerm,setSearchTerm]= React.useState("");
+
   function handleSearch (event){
-    console.log(event.target.value);
+    setSearchTerm(event.target.value);
   };
+  const searchedStories = stories.filter(function(story){
+    return story.title.includes(searchTerm)
+  });
   return (
     <div>
       <h1> My Hacker Stories </h1>
-      <Search onSearch = {handleSearch}/>
+      <Search searchTerm = {searchTerm} onSearch = {handleSearch}/>
       <hr />
-      <List list={stories}/>
+      <List list={searchedStories}/>
       <hr />
       <List list={list}/>
     </div>
   )
 };
-function Search(props){
-  const [searchTerm,setSearchTerm]= React.useState("");
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-    // open developer tab on the browser to see the log.
-    props.onSearch(event);
-  };
+function Search(props){ 
   return(
     <div>
       <label htmlFor='search'>Search: </label>
-      <input id='search' type = 'text' onChange={handleChange}/>
-      <p>Searching for <strong>{searchTerm}</strong></p>
+      <input id='search' type = 'text' onChange={props.onSearch}/>
+      <p>Searching for <strong>{props.searchTerm}</strong></p>
     </div>
   )
 };
@@ -93,7 +92,8 @@ function List(props){
 }
 function Item(props){
   const keys = Object.keys(props);
-  console.log("properties of Item Element:" + keys)
+  console.log("properties of Item Element:" + keys);
+  console.log("props:" + props);
   return(
     <li>
     <span>
