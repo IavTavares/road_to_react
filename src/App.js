@@ -47,10 +47,13 @@ function App() {
       objectID: 1,
     },
   ];
+  function handleSearch (event){
+    console.log(event.target.value);
+  };
   return (
     <div>
       <h1> My Hacker Stories </h1>
-      <Search />
+      <Search onSearch = {handleSearch}/>
       <hr />
       <List list={stories}/>
       <hr />
@@ -58,11 +61,12 @@ function App() {
     </div>
   )
 };
-function Search(){
+function Search(props){
   const [searchTerm,setSearchTerm]= React.useState("");
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
     // open developer tab on the browser to see the log.
+    props.onSearch(event);
   };
   return(
     <div>
